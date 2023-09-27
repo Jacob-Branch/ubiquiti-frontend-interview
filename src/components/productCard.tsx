@@ -10,11 +10,11 @@ export const ProductCard  = ({product}: HeaderProps) => {
   return (
       <div onClick={() => navigate("/product/"+product.id)} className={"product-card"}>
         <div>
-          <img alt={product.name} src={product.image} />
+          <img alt={product.name} src={product.image.medium} />
         </div>
         <div>
           <p>{product.name}</p>
-          <p>{product.productLine}</p>
+          <p>{product.productLine.name}</p>
         </div>
       </div>
   )

@@ -1,0 +1,56 @@
+.error-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  isolation: isolate;
+  z-index: 1001;
+
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: .5rem;
+
+    padding: 3rem;
+    background: $neutral-0;
+    border-radius: .5rem;
+    max-width: 95vw;
+    width: fit-content;
+
+    p {
+      @include medium-bold;
+      color: $text-3;
+
+      span {
+        color: $text-1;
+      }
+
+      &:first-of-type {
+        @include large;
+        color: $text-2;
+      }
+
+      &:last-of-type {
+        @include small;
+
+        a {
+          color: $u-blue-6;
+        }
+      }
+    }
+  }
+
+  &::before {
+    content: "";
+    position: fixed;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    height: 100vh;
+    background: $black-45;
+  }
+}

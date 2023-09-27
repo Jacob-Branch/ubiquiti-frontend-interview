@@ -1,17 +1,20 @@
 import { z } from "zod"
 
-export const PRODUCT_LINES = ["UniFI", "UniFI LTE", "UniFI Protect", "UniFI Access", "airMax", "EdgeMax"] as const
-export type ProductLines = typeof PRODUCT_LINES[number]
-
 export const productSchema = z.object({
+  sysIDs: z.array(z.string()),
   name: z.string(),
-  image: z.string(),
-  productLine: z.enum(PRODUCT_LINES),
+  image: z.object({
+    small: z.string(),
+    medium: z.string(),
+    large: z.string()
+  }),
+  productLine: z.object({
+    name: z.string(),
+    id: z.string()
+  }),
   id: z.string(),
-  shortname: z.string(),
-  maxPower: z.number(),
-  speed: z.number(),
-  numOfPorts: z.number(),
+  guids: z.array(z.string()),
+  shortnames: z.array(z.string()),
 })
 export type Product = z.infer<typeof productSchema>
 

@@ -1,16 +1,16 @@
 import {Dispatch, SetStateAction, useState} from "react";
-import {ProductLines, PRODUCT_LINES} from "../types/product.ts";
 
 interface HeaderProps {
   search: string
   setSearch: Dispatch<SetStateAction<string>>
   display: "list" | "grid"
   setDisplay: Dispatch<SetStateAction<"list" | "grid">>
-  filter: ProductLines[]
-  setFilter: Dispatch<SetStateAction<ProductLines[]>>
+  filter: string[]
+  setFilter: Dispatch<SetStateAction<string[]>>
+  productLines: {name: string, id: string}[]
 }
 
-export const ContentControl = ({search, setSearch, display, setDisplay, filter, setFilter}: HeaderProps) => {
+export const ContentControl = ({search, setSearch, display, setDisplay, filter, setFilter, productLines}: HeaderProps) => {
   const [tempSearch, setTempSearch] = useState(search)
   const [filterOpen, setFilterOpen] = useState(false)
 
@@ -29,8 +29,8 @@ export const ContentControl = ({search, setSearch, display, setDisplay, filter, 
           <button type={"submit"} onClick={() => updateSearch("")}><img alt={"clear"} src={"/icons/Close-icon.svg"} /></button>
         </form>
         <div>
-          <img alt={"list view"} src={display === "list" ? "/icons/list-view/active.svg" : "/icons/list-view/inactive.svg"}  onClick={() => setDisplay(prev => prev === "grid" ? "list" : "grid")}/>
-          <img alt={"grid view"} src={display === "grid" ? "/icons/grid-view/active.svg" : "/icons/grid-view/inactive.svg"} onClick={() => setDisplay(prev => prev === "list" ? "grid" : "list")}/>
+          <img alt={"list view"} src={display === "list" ? "/icons/list-view/active.svg" : "/icons/list-view/inactive.svg"}  onClick={() => setDisplay("list")}/>
+          <img alt={"grid view"} src={display === "grid" ? "/icons/grid-view/active.svg" : "/icons/grid-view/inactive.svg"} onClick={() => setDisplay("grid")}/>
           <button onClick={() => setFilterOpen(prev => !prev)}>Filter</button>
           <div style={{display: filterOpen ? "flex" : "none"}}>
             <form>
@@ -39,10 +39,10 @@ export const ContentControl = ({search, setSearch, display, setDisplay, filter, 
                 <button type={"button"} onClick={() => setFilterOpen(false)}><img alt={"close"} src={"/icons/Close-icon.svg"} /></button>
               </div>
               <p>Product line</p>
-              {PRODUCT_LINES.map((v, i) => (
+              {productLines.map((v, i) => (
                   <div key={`product-lines-filter-${i}`}>
-                    <input type={"checkbox"} id={`checkbox-${v.replace(" ", "-")}`} checked={filter.includes(v)} onChange={() => setFilter(prev => prev.includes(v) ? prev.filter((i) => i !== v) : [...prev, v])}/>
-                    <label htmlFor={`checkbox-${v.replace(" ", "-")}`} className={`${filter.includes(v) && "checked"}`}><span></span>{v}</label>
+                    <input type={"checkbox"} id={`checkbox-${v.id}`} checked={filter.includes(v.id)} onChange={() => setFilter(prev => prev.includes(v.id) ? prev.filter((i) => i !== v.id) : [...prev, v.id])}/>
+                    <label htmlFor={`checkbox-${v.id}`} className={`${filter.includes(v.id) && "checked"}`}><span></span>{v.name}</label>
                   </div>
               ))}
             </form>

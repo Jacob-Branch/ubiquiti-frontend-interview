@@ -1,199 +1,66 @@
-import {Product, productSchema, ProductList, productListSchema, ProductLines} from "../types/product.ts"
+import {Product, ProductList} from "../types/product.ts"
 
-const API_ENDPOINT = ""
+const API_ENDPOINT = "https://static.ui.com/fingerprint/ui/public.json"
 
-const FAKE_DATA: {[x:string]: Product} = {
-  "unifi-in-wall": {
-    name: "Access Point WiFi 6 In-Wall",
-    image: "/images/products/wifi-6-in-wall.png",
-    id: "unifi-in-wall",
-    shortname: "U6-In-Wall",
-    productLine: "UniFI",
-    maxPower: 25,
-    speed: 2400,
-    numOfPorts: 5
-  },
-  "unifi-enterprise": {
-    name: "Access Point WiFi 6 Enterprise",
-    image: "/images/products/wifi-6-enterprise.png",
-    id: "unifi-enterprise",
-    shortname: "U6-Enterprise",
-    productLine: "UniFI",
-    maxPower: 25,
-    speed: 2400,
-    numOfPorts: 5
-  },
-  "nano-switch": {
-    name: "NanoSwitch",
-    image: "/images/products/nano-switch.png",
-    id: "nano-switch",
-    shortname: "NanoSwitch",
-    productLine: "UniFI Access",
-    maxPower: 25,
-    speed: 2400,
-    numOfPorts: 5
-  },
-  "unifi-lte": {
-    name: "UniFi LTE",
-    image: "/images/products/unifi-lte.png",
-    id: "unifi-lte",
-    shortname: "UniFi-LTE",
-    productLine: "UniFI LTE",
-    maxPower: 25,
-    speed: 2400,
-    numOfPorts: 5
-  },
-  "unifi-in-wall-2": {
-    name: "Access Point WiFi 6 In-Wall",
-    image: "/images/products/wifi-6-in-wall.png",
-    id: "unifi-in-wall-2",
-    shortname: "U6-In-Wall",
-    productLine: "UniFI",
-    maxPower: 25,
-    speed: 2400,
-    numOfPorts: 5
-  },
-  "unifi-enterprise-2": {
-    name: "Access Point WiFi 6 Enterprise",
-    image: "/images/products/wifi-6-enterprise.png",
-    id: "unifi-enterprise-2",
-    shortname: "U6-Enterprise",
-    productLine: "UniFI",
-    maxPower: 25,
-    speed: 2400,
-    numOfPorts: 5
-  },
-  "nano-switch-2": {
-    name: "NanoSwitch",
-    image: "/images/products/nano-switch.png",
-    id: "nano-switch-2",
-    shortname: "NanoSwitch",
-    productLine: "UniFI Access",
-    maxPower: 25,
-    speed: 2400,
-    numOfPorts: 5
-  },
-  "unifi-lte-2": {
-    name: "UniFi LTE",
-    image: "/images/products/unifi-lte.png",
-    id: "unifi-lte-2",
-    shortname: "UniFi-LTE",
-    productLine: "UniFI LTE",
-    maxPower: 25,
-    speed: 2400,
-    numOfPorts: 5
-  },
-  "unifi-in-wall-3": {
-    name: "Access Point WiFi 6 In-Wall",
-    image: "/images/products/wifi-6-in-wall.png",
-    id: "unifi-in-wall-3",
-    shortname: "U6-In-Wall",
-    productLine: "UniFI",
-    maxPower: 25,
-    speed: 2400,
-    numOfPorts: 5
-  },
-  "unifi-enterprise-3": {
-    name: "Access Point WiFi 6 Enterprise",
-    image: "/images/products/wifi-6-enterprise.png",
-    id: "unifi-enterprise-3",
-    shortname: "U6-Enterprise",
-    productLine: "UniFI",
-    maxPower: 25,
-    speed: 2400,
-    numOfPorts: 5
-  },
-  "nano-switch-3": {
-    name: "NanoSwitch",
-    image: "/images/products/nano-switch.png",
-    id: "nano-switch-3",
-    shortname: "NanoSwitch",
-    productLine: "UniFI Access",
-    maxPower: 25,
-    speed: 2400,
-    numOfPorts: 5
-  },
-  "unifi-lte-3": {
-    name: "UniFi LTE",
-    image: "/images/products/unifi-lte.png",
-    id: "unifi-lte-3",
-    shortname: "UniFi-LTE",
-    productLine: "UniFI LTE",
-    maxPower: 25,
-    speed: 2400,
-    numOfPorts: 5
-  },
-  "unifi-in-wall-4": {
-    name: "Access Point WiFi 6 In-Wall",
-    image: "/images/products/wifi-6-in-wall.png",
-    id: "unifi-in-wall-4",
-    shortname: "U6-In-Wall",
-    productLine: "UniFI",
-    maxPower: 25,
-    speed: 2400,
-    numOfPorts: 5
-  },
-  "unifi-enterprise-4": {
-    name: "Access Point WiFi 6 Enterprise",
-    image: "/images/products/wifi-6-enterprise.png",
-    id: "unifi-enterprise-4",
-    shortname: "U6-Enterprise",
-    productLine: "UniFI",
-    maxPower: 25,
-    speed: 2400,
-    numOfPorts: 5
-  },
-  "nano-switch-4": {
-    name: "NanoSwitch",
-    image: "/images/products/nano-switch.png",
-    id: "nano-switch-4",
-    shortname: "NanoSwitch",
-    productLine: "UniFI Access",
-    maxPower: 25,
-    speed: 2400,
-    numOfPorts: 5
-  },
-  "unifi-lte-4": {
-    name: "UniFi LTE",
-    image: "/images/products/unifi-lte.png",
-    id: "unifi-lte-4",
-    shortname: "UniFi-LTE",
-    productLine: "UniFI LTE",
-    maxPower: 25,
-    speed: 2400,
-    numOfPorts: 5
+const productLines: {name: string, id: string}[] = []
+
+export const getProductLines = () => productLines
+
+const createDeviceList = (devices: any[]): Product[] => {
+  const products: Product[] = []
+  for (let i = 0; i < devices.length; i++) {
+    if (!productLines.find((v) => v.id === devices[i].line.id)) productLines.push({name: devices[i].line.name, id: devices[i].line.id})
+    const device: Product = {
+      name: devices[i].product.name,
+      sysIDs: devices[i].sysids,
+      image: {
+        small: `https://static.ui.com/fingerprint/ui/icons/${devices[i].icon.id}_${devices[i].icon.resolutions[1][0]}x${devices[i].icon.resolutions[1][1]}.png`,
+        medium: `https://static.ui.com/fingerprint/ui/icons/${devices[i].icon.id}_${devices[i].icon.resolutions[3][0]}x${devices[i].icon.resolutions[3][1]}.png`,
+        large: `https://static.ui.com/fingerprint/ui/icons/${devices[i].icon.id}_${devices[i].icon.resolutions[4][0]}x${devices[i].icon.resolutions[4][1]}.png`,
+      },
+      productLine: {
+        name: devices[i].line.name,
+        id: devices[i].line.id
+      },
+      id: devices[i].id,
+      guids: devices[i].guids,
+      shortnames: devices[i].shortnames,
+    }
+    products.push(device)
   }
+  return products
 }
 
 export const getProduct = async (id: string): Promise<Product> => {
-  if (API_ENDPOINT !== "") {
-    const data = await fetch(`${API_ENDPOINT}products/${id}`)
-    const product = productSchema.safeParse(await data.json())
-
-    if (product.success) return product.data
-    else throw new Error("Malformed product data")
+  let json
+  try {
+    const data = await fetch(`${API_ENDPOINT}`)
+    json = await data.json()
+  } catch (e) {
+    throw new Error("Data provider is down")
   }
-  return FAKE_DATA[id]
+
+  const devices = json.devices
+  const products = createDeviceList(devices)
+  const product = products.find((v) => v.id === id)
+
+  if (product) return product
+  else throw new Error("404 This device does not exist")
 }
 
-export const getProducts = async (filter?: ProductLines[], search?: string): Promise<ProductList> => {
-  let products: Product[] = API_ENDPOINT ? [] : Object.values(FAKE_DATA)
-  if (API_ENDPOINT !== "") {const data = await fetch(`${API_ENDPOINT}products?${filter && "filter="+filter+"/"}${search && "search="+search}`)
-    const productList = productListSchema.safeParse(await data.json())
-
-    if (productList.success) products = productList.data
-    else throw new Error("Malformed product data")
-  } else {
-    if (filter) {
-      for (const f of filter) {
-        products = products.filter((v) => v.productLine === f)
-      }
-    }
-
-    if (search) {
-      products = products.filter((v) => v.name.toLowerCase().includes(search.toLowerCase()))
-    }
+export const getProducts = async (filter?: string[], search?: string): Promise<ProductList> => {
+  let json
+  try {
+    const data = await fetch(`${API_ENDPOINT}`)
+    json = await data.json()
+  } catch (e) {
+    throw new Error("Data provider is down")
   }
 
+  const devices = json.devices
+  let products = createDeviceList(devices)
+
+  if (filter && filter.length !== 0) products = products.filter((v) => filter.includes(v.productLine.id))
+  if (search) products = products.filter((v) => v.name.toLowerCase().includes(search.toLowerCase()))
   return products
 }

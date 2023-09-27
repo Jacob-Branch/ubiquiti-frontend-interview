@@ -1,34 +1,37 @@
 
-tr {
-  transition: background .2s ease-in-out;
-  cursor: pointer;
-  img {
-    max-height: 1.625rem;
-    position: absolute;
-    top: 50%;
-    right: 2.5rem;
-    transform: translateY(-50%);
-  }
+tbody {
+  tr {
+    transition: background .2s ease-in-out;
+    cursor: pointer;
 
-  td {
-    @include medium;
-    color: $text-2;
-    padding: 0.25rem 2rem 0.25rem 0.25rem;
-    height: 100%;
-
-    &:first-of-type {
-      position: relative;
-      padding: 0.25rem 2.5rem 0.25rem 4.5rem;
-      min-width: 8.75rem;
+    img {
+      max-height: 1.625rem;
+      position: absolute;
+      top: 50%;
+      right: 2.5rem;
+      transform: translateY(-50%);
     }
 
-    &:nth-of-type(2) {
-      max-width: 15.875rem;
-      padding: 0.25rem 1.5rem 0.25rem 0.25rem;
-    }
-  }
+    td {
+      @include medium;
+      color: $text-2;
+      padding: 0.25rem 2rem 0.25rem 0.25rem;
+      height: 100%;
 
-  &:hover {
-    background: #FBFBFB;
+      &:first-of-type {
+        position: relative;
+        padding: 0.25rem 2.5rem 0.25rem 4.5rem;
+        min-width: 8.75rem;
+      }
+
+      &:nth-of-type(2) {
+        max-width: 15.875rem;
+        padding: 0.25rem 1.5rem 0.25rem 0.25rem;
+      }
+    }
+
+    &:hover {
+      background: #FBFBFB;
+    }
   }
 }

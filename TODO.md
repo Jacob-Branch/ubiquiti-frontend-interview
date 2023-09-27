@@ -1,5 +1,5 @@
 # List of possible future improvements
 
-- Change the product type to enable different measurement types
 - Add loading state when waiting for data
-- Make it possible to use 3 sizes of images for cards, list view, and product view
+- Implement pagination to reduce loading time and stress on server
+- Add try catches for parsing with a custom error message that represents what happened
