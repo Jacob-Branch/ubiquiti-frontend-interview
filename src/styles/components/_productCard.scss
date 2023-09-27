@@ -1,0 +1,46 @@
+.product-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  border-radius: .5rem;
+  border: 1px $neutral-4 solid;
+  height: 100%;
+  cursor: pointer;
+
+  div {
+    &:first-of-type {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: $neutral-2;
+      height: 8rem;
+      padding: .5rem 0;
+
+      img {
+        width: unset;
+        height: 100%;
+      }
+    }
+
+    &:last-of-type {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+
+      padding: .75rem;
+
+      p {
+        @include medium;
+        color: $text-2;
+
+        &:last-of-type {
+          @include small;
+          color: $text-3;
+        }
+      }
+    }
+  }
+}

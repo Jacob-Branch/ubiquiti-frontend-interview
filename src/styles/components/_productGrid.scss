@@ -1,0 +1,21 @@
+.product-grid {
+  width: 100%;
+  padding: 1rem 5rem;
+
+  & > p {
+    display: flex;
+    width: 8.75rem;
+    height: 2.0625rem;
+    padding: 0.25rem 0rem 0.25rem 0.25rem;
+    align-items: center;
+    flex-shrink: 0;
+    @include small;
+    color: $gray-4;
+  }
+
+  & > div {
+    display: grid;
+    grid-gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  }
+}
