@@ -26,7 +26,6 @@ export const Product = () => {
   useEffect(() => {
     if (!productID) navigate("/")
     else getAndSetProduct(productID)
-    document.title = "Ubiquiti | Devices | Jekabs Zarins"
   }, []);
   return (product ?
       <div className={"product-page"}>

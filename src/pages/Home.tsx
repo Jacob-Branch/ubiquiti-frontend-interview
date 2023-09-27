@@ -31,12 +31,6 @@ export const Home = () => {
 
   useEffect(() => {
     setProductLines(getProductLines())
-    document.title = "Ubiquiti | Devices | Jekabs Zarins"
-
-    // const localStorageDisplayStyle = localStorage.getItem("display")
-    // if (localStorageDisplayStyle === "grid" || localStorageDisplayStyle === "list") {
-    //   setDisplay(localStorageDisplayStyle)
-    // }
   }, []);
 
   useEffect(() => {
